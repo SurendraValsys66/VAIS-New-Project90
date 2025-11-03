@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -46,10 +47,12 @@ import {
   Calendar,
   Clock,
   Crown,
+  ArrowRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export default function Settings() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showApiKey, setShowApiKey] = useState(false);
   const [notifications, setNotifications] = useState({
@@ -114,6 +117,8 @@ export default function Settings() {
     credits: 8450,
     nextBilling: new Date("2024-02-15"),
     usageThisMonth: 2150,
+    subscriptionActivatedDate: new Date("2023-06-15"),
+    planExpiryDate: new Date("2024-06-15"),
   });
 
   const availableCredit = Math.max(0, billing.credits - billing.usageThisMonth);
@@ -467,8 +472,108 @@ export default function Settings() {
               </div>
 
               <div>
+                {/* Current Plan Details */}
+                <Card className="bg-gradient-to-br from-valasys-orange/5 to-white border border-valasys-orange/20">
+                  <CardHeader className="pb-4">
+                    <CardTitle>
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-gradient-to-r from-valasys-orange to-valasys-orange-light rounded-lg flex items-center justify-center">
+                          <Crown className="w-4 h-4 text-white" />
+                        </div>
+                        <span>Current Plan Details</span>
+                      </div>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {/* Plan Name */}
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <Label className="text-sm text-gray-600 flex items-center gap-2">
+                          <Crown
+                            className="w-4 h-4 text-valasys-orange"
+                            aria-hidden="true"
+                          />
+                          <span>Current Plan</span>
+                        </Label>
+                        <div className="font-semibold text-lg text-gray-900 mt-1">
+                          {billing.plan}
+                        </div>
+                      </div>
+                      <Badge className="bg-valasys-orange/10 text-valasys-orange border border-valasys-orange/30">
+                        Active
+                      </Badge>
+                    </div>
+
+                    {/* Credit Spent */}
+                    <div className="border-t border-valasys-orange/10 pt-4">
+                      <Label className="text-sm text-gray-600 flex items-center gap-2">
+                        <CreditCard
+                          className="w-4 h-4 text-valasys-orange"
+                          aria-hidden="true"
+                        />
+                        <span>Credit Spent</span>
+                      </Label>
+                      <div className="flex items-baseline gap-2 mt-1">
+                        <span className="text-2xl font-bold text-gray-900">
+                          {metrics.creditsSpent.toLocaleString()}
+                        </span>
+                        <span className="text-sm text-gray-600">credits</span>
+                      </div>
+                    </div>
+
+                    {/* Subscription Dates */}
+                    <div className="border-t border-valasys-orange/10 pt-4 space-y-4">
+                      <div>
+                        <Label className="text-sm text-gray-600 flex items-center gap-2">
+                          <Calendar
+                            className="w-4 h-4 text-valasys-orange"
+                            aria-hidden="true"
+                          />
+                          <span>Subscription Activated</span>
+                        </Label>
+                        <div className="font-medium text-gray-900 mt-1">
+                          {billing.subscriptionActivatedDate.toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            },
+                          )}
+                        </div>
+                      </div>
+
+                      <div>
+                        <Label className="text-sm text-gray-600 flex items-center gap-2">
+                          <Clock
+                            className="w-4 h-4 text-valasys-orange"
+                            aria-hidden="true"
+                          />
+                          <span>Plan Expiry Date</span>
+                        </Label>
+                        <div className="font-medium text-gray-900 mt-1">
+                          {billing.planExpiryDate.toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Upgrade Button */}
+                    <Button
+                      onClick={() => navigate("/subscription")}
+                      className="w-full mt-4 bg-gradient-to-r from-valasys-orange to-valasys-orange-light text-white shadow-md hover:shadow-lg hover:from-valasys-orange/90 hover:to-valasys-orange-light/90 transition-all"
+                    >
+                      <ArrowRight className="w-4 h-4 mr-2" />
+                      Upgrade Subscription
+                    </Button>
+                  </CardContent>
+                </Card>
+
                 {/* Usage Overview (similar to provided design) */}
-                <Card>
+                <Card className="mt-6">
                   <CardHeader>
                     <CardTitle>
                       <div className="flex items-center gap-2">
