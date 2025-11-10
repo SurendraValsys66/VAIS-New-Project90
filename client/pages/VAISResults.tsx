@@ -701,7 +701,7 @@ export default function VAISResults() {
 
   return (
     <DashboardLayout>
-      <div className="-mx-6 px-0">
+      <div className="-mx-6 px-0 vais-results-page">
         <div className="space-y-6 px-6">
           {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
