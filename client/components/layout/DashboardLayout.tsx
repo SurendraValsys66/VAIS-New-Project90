@@ -60,6 +60,7 @@ import { DraggableChatSupport } from "@/components/ui/draggable-chat-support";
 import TrialProgressBar from "@/components/ui/trial-progress-bar";
 import TrialBanner from "@/components/ui/trial-banner";
 import TrialBadgeDropdown from "@/components/ui/trial-badge-dropdown";
+import { Progress } from "@/components/ui/progress";
 import OnboardingSkipBadge from "@/components/layout/OnboardingSkipBadge";
 import { useTour } from "@/contexts/TourContext";
 import PlatformTour from "@/components/tour/PlatformTour";
