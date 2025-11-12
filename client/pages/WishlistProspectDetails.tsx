@@ -1217,6 +1217,21 @@ export default function WishlistProspectDetails() {
                               }
                             />
                           </TableCell>
+                          <TableCell className="w-10">
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="h-8 w-8 p-0 hover:bg-yellow-50"
+                                  onClick={() => handleRemoveProspect(prospect.id)}
+                                >
+                                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>Remove from list</TooltipContent>
+                            </Tooltip>
+                          </TableCell>
                           {columnVisibility.prospect && (
                             <TableCell>
                               <div className="flex items-center space-x-3">
