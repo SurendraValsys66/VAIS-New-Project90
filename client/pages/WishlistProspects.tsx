@@ -304,32 +304,44 @@ export default function WishlistProspects() {
               </div>
             </div>
 
-            <Card className="shadow-sm">
+            <Card className="shadow-sm border-2 border-dashed border-valasys-orange/20">
               <CardContent className="p-12 text-center">
-                <div className="flex flex-col items-center space-y-4">
-                  <div className="p-4 bg-gradient-to-r from-valasys-orange/10 to-orange-50 rounded-full">
-                    <BookmarkMinus className="w-12 h-12 text-valasys-orange" />
+                <div className="flex flex-col items-center space-y-6">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-valasys-orange/10 to-orange-50 rounded-full blur-lg"></div>
+                    <div className="relative p-4 bg-gradient-to-r from-valasys-orange/20 to-orange-100 rounded-full">
+                      <Sparkles className="w-12 h-12 text-valasys-orange" />
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      No Lists Yet
+                  <div className="space-y-3 max-w-lg">
+                    <h3 className="text-2xl font-bold text-gray-900">
+                      Get Started with Prospect Lists
                     </h3>
-                    <p className="text-gray-600 max-w-md">
-                      Create your first list by adding prospects to a new list
-                      on the Prospect Results page. Your lists will be saved
-                      here for easy access.
+                    <p className="text-gray-600">
+                      Create curated lists to organize and manage your prospects. Build lists directly from search results or create an empty list and add prospects later.
                     </p>
                   </div>
-                  <Link to="/prospect-results">
-                    <Button className="bg-valasys-orange hover:bg-valasys-orange/90 text-white mt-4">
-                      <Search className="w-4 h-4 mr-2" />
-                      Find Prospects
+
+                  <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                    <Button
+                      onClick={() => setCreateListDialogOpen(true)}
+                      className="bg-valasys-orange hover:bg-valasys-orange/90 text-white"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Create List
                     </Button>
-                  </Link>
+                    <Link to="/prospect-results">
+                      <Button variant="outline" className="border-valasys-orange text-valasys-orange hover:bg-valasys-orange/5">
+                        <Search className="w-4 h-4 mr-2" />
+                        Find Prospects
+                      </Button>
+                    </Link>
+                  </div>
+
                   <Button
                     onClick={addSampleData}
-                    variant="outline"
-                    className="mt-3"
+                    variant="ghost"
+                    className="mt-2 text-gray-600 hover:text-valasys-orange"
                   >
                     View Sample Data
                   </Button>
@@ -337,6 +349,59 @@ export default function WishlistProspects() {
               </CardContent>
             </Card>
           </div>
+
+          {/* Create List Dialog */}
+          <Dialog open={createListDialogOpen} onOpenChange={setCreateListDialogOpen}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <Plus className="w-5 h-5 text-valasys-orange" />
+                  Create New List
+                </DialogTitle>
+                <DialogDescription>
+                  Create a new prospect list to organize your leads
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium text-gray-700">
+                    List Name
+                  </label>
+                  <Input
+                    placeholder="e.g., High Priority Leads"
+                    value={newListName}
+                    onChange={(e) => setNewListName(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleCreateList();
+                      }
+                    }}
+                    autoFocus
+                  />
+                </div>
+                <p className="text-xs text-gray-500">
+                  You can add prospects to this list later by finding them in the search results.
+                </p>
+              </div>
+              <DialogFooter>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setCreateListDialogOpen(false);
+                    setNewListName("");
+                  }}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={handleCreateList}
+                  className="bg-valasys-orange hover:bg-valasys-orange/90"
+                >
+                  Create List
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </DashboardLayout>
       </TooltipProvider>
     );
