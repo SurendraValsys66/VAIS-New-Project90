@@ -49,6 +49,7 @@ import {
   ArrowUpDown,
   BarChart3,
   Maximize,
+  Star,
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
