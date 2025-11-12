@@ -629,6 +629,10 @@ export default function ProspectResults() {
 
   const isFavorite = (id: string) => favorites.includes(id);
 
+  const isProspectInAnyList = (prospectId: string) => {
+    return lists.some((list) => list.prospects.includes(prospectId));
+  };
+
   const handleAddToList = (prospectId: string, prospectName: string) => {
     setAddToListDialog({
       open: true,
