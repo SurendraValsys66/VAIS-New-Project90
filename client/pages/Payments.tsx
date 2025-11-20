@@ -968,8 +968,14 @@ export default function Payments() {
 
         <AddPaymentMethodDialog
           open={addPaymentDialogOpen}
-          onOpenChange={setAddPaymentDialogOpen}
+          onOpenChange={(open) => {
+            setAddPaymentDialogOpen(open);
+            if (!open) {
+              setEditingMethod(undefined);
+            }
+          }}
           onAdd={handleAddPaymentMethod}
+          editingMethod={editingMethod}
         />
       </div>
     </DashboardLayout>
