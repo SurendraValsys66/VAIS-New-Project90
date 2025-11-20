@@ -67,6 +67,7 @@ interface PaymentMethod {
   isDefault: boolean;
   lastUsed: string;
   status: "active" | "expired" | "inactive";
+  autopayEnabled: boolean;
 }
 
 const paymentMethods: PaymentMethod[] = [
