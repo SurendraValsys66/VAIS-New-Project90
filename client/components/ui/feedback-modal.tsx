@@ -68,7 +68,12 @@ export function FeedbackModal({ open, onOpenChange }: FeedbackModalProps) {
                   onClick={() => setRating(star)}
                   onMouseEnter={() => setHoveredRating(star)}
                   onMouseLeave={() => setHoveredRating(null)}
-                  className="transition-all duration-200 transform"
+                  className={cn(
+                    "transition-all duration-200 transform",
+                    hoveredRating !== null && star <= hoveredRating
+                      ? "scale-125"
+                      : "scale-100"
+                  )}
                   title={`${star} star${star !== 1 ? "s" : ""}`}
                   type="button"
                 >
