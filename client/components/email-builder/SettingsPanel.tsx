@@ -26,6 +26,79 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
 
   const renderSettings = () => {
     switch (block.type) {
+      case "title":
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="titleContent">Content</Label>
+              <textarea
+                id="titleContent"
+                value={block.content}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, content: e.target.value })
+                }
+                className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+                rows={3}
+              />
+            </div>
+            <div>
+              <Label htmlFor="titleFontSize">Font Size</Label>
+              <Input
+                id="titleFontSize"
+                type="number"
+                min="12"
+                max="72"
+                value={block.fontSize}
+                onChange={(e) =>
+                  onBlockUpdate({
+                    ...block,
+                    fontSize: parseInt(e.target.value),
+                  })
+                }
+              />
+            </div>
+            <div>
+              <Label htmlFor="titleFontColor">Text Color</Label>
+              <Input
+                id="titleFontColor"
+                type="color"
+                value={block.fontColor}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, fontColor: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <Label htmlFor="titleBgColor">Background Color</Label>
+              <Input
+                id="titleBgColor"
+                type="color"
+                value={block.backgroundColor}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, backgroundColor: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <Label htmlFor="titleAlignment">Alignment</Label>
+              <select
+                id="titleAlignment"
+                value={block.alignment}
+                onChange={(e) =>
+                  onBlockUpdate({
+                    ...block,
+                    alignment: e.target.value as any,
+                  })
+                }
+                className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+              >
+                <option value="left">Left</option>
+                <option value="center">Center</option>
+                <option value="right">Right</option>
+              </select>
+            </div>
+          </div>
+        );
       case "text":
         return (
           <div className="space-y-4">
@@ -357,6 +430,327 @@ export const SettingsPanel: React.FC<SettingsPanelProps> = ({
                   onBlockUpdate({ ...block, backgroundColor: e.target.value })
                 }
               />
+            </div>
+          </div>
+        );
+      case "video":
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="videoSrc">Video URL</Label>
+              <Input
+                id="videoSrc"
+                value={block.src}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, src: e.target.value })
+                }
+                placeholder="https://example.com/video.mp4"
+              />
+            </div>
+            <div>
+              <Label htmlFor="videoThumb">Thumbnail URL</Label>
+              <Input
+                id="videoThumb"
+                value={block.thumbnail}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, thumbnail: e.target.value })
+                }
+                placeholder="https://example.com/thumb.jpg"
+              />
+            </div>
+            <div>
+              <Label htmlFor="videoWidth">Width (px)</Label>
+              <Input
+                id="videoWidth"
+                type="number"
+                value={block.width}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, width: parseInt(e.target.value) })
+                }
+              />
+            </div>
+            <div>
+              <Label htmlFor="videoHeight">Height (px)</Label>
+              <Input
+                id="videoHeight"
+                type="number"
+                value={block.height}
+                onChange={(e) =>
+                  onBlockUpdate({
+                    ...block,
+                    height: parseInt(e.target.value),
+                  })
+                }
+              />
+            </div>
+          </div>
+        );
+      case "dynamicContent":
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="fieldName">Field Name</Label>
+              <Input
+                id="fieldName"
+                value={block.fieldName}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, fieldName: e.target.value })
+                }
+                placeholder="e.g., user_name"
+              />
+            </div>
+            <div>
+              <Label htmlFor="dcBgColor">Background Color</Label>
+              <Input
+                id="dcBgColor"
+                type="color"
+                value={block.backgroundColor}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, backgroundColor: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <Label htmlFor="dcPadding">Padding (px)</Label>
+              <Input
+                id="dcPadding"
+                type="number"
+                value={block.padding}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, padding: parseInt(e.target.value) })
+                }
+              />
+            </div>
+          </div>
+        );
+      case "logo":
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="logoSrc">Logo URL</Label>
+              <Input
+                id="logoSrc"
+                value={block.src}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, src: e.target.value })
+                }
+                placeholder="https://example.com/logo.png"
+              />
+            </div>
+            <div>
+              <Label htmlFor="logoWidth">Width (px)</Label>
+              <Input
+                id="logoWidth"
+                type="number"
+                value={block.width}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, width: parseInt(e.target.value) })
+                }
+              />
+            </div>
+            <div>
+              <Label htmlFor="logoHeight">Height (px)</Label>
+              <Input
+                id="logoHeight"
+                type="number"
+                value={block.height}
+                onChange={(e) =>
+                  onBlockUpdate({
+                    ...block,
+                    height: parseInt(e.target.value),
+                  })
+                }
+              />
+            </div>
+            <div>
+              <Label htmlFor="logoAlignment">Alignment</Label>
+              <select
+                id="logoAlignment"
+                value={block.alignment}
+                onChange={(e) =>
+                  onBlockUpdate({
+                    ...block,
+                    alignment: e.target.value as any,
+                  })
+                }
+                className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+              >
+                <option value="left">Left</option>
+                <option value="center">Center</option>
+                <option value="right">Right</option>
+              </select>
+            </div>
+          </div>
+        );
+      case "social":
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="socialSize">Icon Size</Label>
+              <select
+                id="socialSize"
+                value={block.size}
+                onChange={(e) =>
+                  onBlockUpdate({
+                    ...block,
+                    size: e.target.value as any,
+                  })
+                }
+                className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+              >
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+              </select>
+            </div>
+            <div>
+              <Label htmlFor="socialAlignment">Alignment</Label>
+              <select
+                id="socialAlignment"
+                value={block.alignment}
+                onChange={(e) =>
+                  onBlockUpdate({
+                    ...block,
+                    alignment: e.target.value as any,
+                  })
+                }
+                className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+              >
+                <option value="left">Left</option>
+                <option value="center">Center</option>
+                <option value="right">Right</option>
+              </select>
+            </div>
+          </div>
+        );
+      case "html":
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="htmlContent">HTML Content</Label>
+              <textarea
+                id="htmlContent"
+                value={block.content}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, content: e.target.value })
+                }
+                className="w-full border border-gray-300 rounded px-2 py-1 text-sm font-mono"
+                rows={6}
+                placeholder="<div>Your HTML here</div>"
+              />
+            </div>
+          </div>
+        );
+      case "product":
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="prodImage">Product Image URL</Label>
+              <Input
+                id="prodImage"
+                value={block.image}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, image: e.target.value })
+                }
+                placeholder="https://example.com/product.jpg"
+              />
+            </div>
+            <div>
+              <Label htmlFor="prodTitle">Product Title</Label>
+              <Input
+                id="prodTitle"
+                value={block.title}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, title: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <Label htmlFor="prodDesc">Description</Label>
+              <textarea
+                id="prodDesc"
+                value={block.description}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, description: e.target.value })
+                }
+                className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+                rows={3}
+              />
+            </div>
+            <div>
+              <Label htmlFor="prodPrice">Price</Label>
+              <Input
+                id="prodPrice"
+                value={block.price}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, price: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <Label htmlFor="prodBtnText">Button Text</Label>
+              <Input
+                id="prodBtnText"
+                value={block.buttonText}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, buttonText: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <Label htmlFor="prodBtnLink">Button Link</Label>
+              <Input
+                id="prodBtnLink"
+                value={block.buttonLink}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, buttonLink: e.target.value })
+                }
+              />
+            </div>
+          </div>
+        );
+      case "navigation":
+        return (
+          <div className="space-y-4">
+            <div>
+              <Label htmlFor="navBgColor">Background Color</Label>
+              <Input
+                id="navBgColor"
+                type="color"
+                value={block.backgroundColor}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, backgroundColor: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <Label htmlFor="navTextColor">Text Color</Label>
+              <Input
+                id="navTextColor"
+                type="color"
+                value={block.textColor}
+                onChange={(e) =>
+                  onBlockUpdate({ ...block, textColor: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <Label htmlFor="navAlignment">Alignment</Label>
+              <select
+                id="navAlignment"
+                value={block.alignment}
+                onChange={(e) =>
+                  onBlockUpdate({
+                    ...block,
+                    alignment: e.target.value as any,
+                  })
+                }
+                className="w-full border border-gray-300 rounded px-2 py-1 text-sm"
+              >
+                <option value="left">Left</option>
+                <option value="center">Center</option>
+                <option value="right">Right</option>
+              </select>
             </div>
           </div>
         );

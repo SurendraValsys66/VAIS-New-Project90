@@ -1,10 +1,18 @@
 import {
   ContentBlock,
   EmailTemplate,
+  TitleBlock,
   TextBlock,
   ImageBlock,
+  VideoBlock,
   ButtonBlock,
+  DynamicContentBlock,
+  LogoBlock,
+  SocialBlock,
+  HtmlBlock,
   DividerBlock,
+  ProductBlock,
+  NavigationBlock,
   HeaderBlock,
   FooterBlock,
   SpacerBlock,
@@ -12,6 +20,19 @@ import {
 
 export function generateId(): string {
   return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+}
+
+export function createTitleBlock(content = "Click to edit title"): TitleBlock {
+  return {
+    type: "title",
+    id: generateId(),
+    content,
+    fontSize: 32,
+    fontColor: "#000000",
+    backgroundColor: "#ffffff",
+    alignment: "left",
+    fontWeight: "bold",
+  };
 }
 
 export function createTextBlock(content = "Click to edit text"): TextBlock {
@@ -36,6 +57,95 @@ export function createImageBlock(src = ""): ImageBlock {
     alt: "Image",
     width: 300,
     height: 200,
+    alignment: "center",
+  };
+}
+
+export function createVideoBlock(src = ""): VideoBlock {
+  return {
+    type: "video",
+    id: generateId(),
+    src,
+    thumbnail: "",
+    width: 300,
+    height: 200,
+    alignment: "center",
+  };
+}
+
+export function createDynamicContentBlock(
+  fieldName = "field_name",
+): DynamicContentBlock {
+  return {
+    type: "dynamicContent",
+    id: generateId(),
+    fieldName,
+    placeholder: `[${fieldName}]`,
+    backgroundColor: "#f5f5f5",
+    padding: 12,
+  };
+}
+
+export function createLogoBlock(src = ""): LogoBlock {
+  return {
+    type: "logo",
+    id: generateId(),
+    src,
+    alt: "Logo",
+    width: 150,
+    height: 60,
+    alignment: "center",
+  };
+}
+
+export function createSocialBlock(): SocialBlock {
+  return {
+    type: "social",
+    id: generateId(),
+    platforms: [
+      { name: "Facebook", url: "#", icon: "facebook" },
+      { name: "Twitter", url: "#", icon: "twitter" },
+      { name: "LinkedIn", url: "#", icon: "linkedin" },
+    ],
+    alignment: "center",
+    size: "medium",
+  };
+}
+
+export function createHtmlBlock(content = ""): HtmlBlock {
+  return {
+    type: "html",
+    id: generateId(),
+    content,
+  };
+}
+
+export function createProductBlock(): ProductBlock {
+  return {
+    type: "product",
+    id: generateId(),
+    image: "",
+    title: "Product Name",
+    description: "Product description goes here",
+    price: "$99.99",
+    buttonText: "Buy Now",
+    buttonLink: "#",
+    alignment: "center",
+  };
+}
+
+export function createNavigationBlock(): NavigationBlock {
+  return {
+    type: "navigation",
+    id: generateId(),
+    items: [
+      { label: "Home", link: "#" },
+      { label: "Products", link: "#" },
+      { label: "About", link: "#" },
+      { label: "Contact", link: "#" },
+    ],
+    backgroundColor: "#333333",
+    textColor: "#ffffff",
     alignment: "center",
   };
 }
@@ -113,14 +223,30 @@ export function createEmptyTemplate(): EmailTemplate {
 
 export function renderBlockToHTML(block: ContentBlock): string {
   switch (block.type) {
+    case "title":
+      return `<h1 style="font-size: ${block.fontSize}px; color: ${block.fontColor}; background-color: ${block.backgroundColor}; text-align: ${block.alignment}; font-weight: ${block.fontWeight}; margin: 0;">${block.content}</h1>`;
     case "text":
       return `<p style="font-size: ${block.fontSize}px; color: ${block.fontColor}; background-color: ${block.backgroundColor}; text-align: ${block.alignment}; font-weight: ${block.fontWeight}; font-style: ${block.fontStyle};">${block.content}</p>`;
     case "image":
       return `<img src="${block.src}" alt="${block.alt}" style="width: ${block.width}px; height: ${block.height}px; display: block; margin: 0 auto;" />`;
+    case "video":
+      return `<div style="text-align: ${block.alignment};"><video width="${block.width}" height="${block.height}" controls poster="${block.thumbnail}" style="max-width: 100%;"><source src="${block.src}" type="video/mp4"></video></div>`;
     case "button":
       return `<a href="${block.link}" style="background-color: ${block.backgroundColor}; color: ${block.textColor}; padding: ${block.padding}px 20px; border-radius: ${block.borderRadius}px; text-decoration: none; display: inline-block; text-align: center;">${block.text}</a>`;
+    case "dynamicContent":
+      return `<div style="background-color: ${block.backgroundColor}; padding: ${block.padding}px; border: 1px dashed #ccc;">${block.placeholder}</div>`;
+    case "logo":
+      return `<div style="text-align: ${block.alignment};"><img src="${block.src}" alt="${block.alt}" style="width: ${block.width}px; height: ${block.height}px;" /></div>`;
+    case "social":
+      return `<div style="text-align: ${block.alignment}; padding: 20px 0;"><p>Follow us on social media</p></div>`;
+    case "html":
+      return block.content;
     case "divider":
       return `<hr style="border: none; border-top: ${block.height}px solid ${block.color}; margin: ${block.margin}px 0;" />`;
+    case "product":
+      return `<div style="text-align: ${block.alignment}; border: 1px solid #ddd; padding: 20px; border-radius: 8px;"><img src="${block.image}" alt="${block.title}" style="width: 100%; max-width: 300px; height: auto;"><h3>${block.title}</h3><p>${block.description}</p><p style="font-weight: bold;">${block.price}</p><a href="${block.buttonLink}" style="background-color: #FF6A00; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px;">${block.buttonText}</a></div>`;
+    case "navigation":
+      return `<nav style="background-color: ${block.backgroundColor}; padding: 10px 0; text-align: ${block.alignment};"><a href="#" style="color: ${block.textColor}; margin: 0 15px; text-decoration: none;">Link</a></nav>`;
     case "header":
       return `<div style="background-color: ${block.backgroundColor}; padding: ${block.padding}px; text-align: ${block.alignment};"><img src="${block.logo}" alt="Logo" style="max-width: 200px; height: auto;" /></div>`;
     case "footer":

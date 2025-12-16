@@ -1,9 +1,17 @@
 import React from "react";
 import { ContentBlock } from "./types";
+import { TitleBlockComponent } from "./blocks/TitleBlockComponent";
 import { TextBlockComponent } from "./blocks/TextBlockComponent";
 import { ImageBlockComponent } from "./blocks/ImageBlockComponent";
+import { VideoBlockComponent } from "./blocks/VideoBlockComponent";
 import { ButtonBlockComponent } from "./blocks/ButtonBlockComponent";
+import { DynamicContentBlockComponent } from "./blocks/DynamicContentBlockComponent";
+import { LogoBlockComponent } from "./blocks/LogoBlockComponent";
+import { SocialBlockComponent } from "./blocks/SocialBlockComponent";
+import { HtmlBlockComponent } from "./blocks/HtmlBlockComponent";
 import { DividerBlockComponent } from "./blocks/DividerBlockComponent";
+import { ProductBlockComponent } from "./blocks/ProductBlockComponent";
+import { NavigationBlockComponent } from "./blocks/NavigationBlockComponent";
 import { HeaderBlockComponent } from "./blocks/HeaderBlockComponent";
 import { FooterBlockComponent } from "./blocks/FooterBlockComponent";
 import { SpacerBlockComponent } from "./blocks/SpacerBlockComponent";
@@ -28,6 +36,18 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
   };
 
   switch (block.type) {
+    case "title":
+      return (
+        <div onClick={handleClick}>
+          <TitleBlockComponent
+            block={block}
+            isSelected={isSelected}
+            isEditing={isEditing || false}
+            onEdit={() => onBlockSelect?.(block.id)}
+            onContentChange={(content) => onBlockUpdate({ ...block, content })}
+          />
+        </div>
+      );
     case "text":
       return (
         <div onClick={handleClick}>
@@ -53,16 +73,76 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
           />
         </div>
       );
+    case "video":
+      return (
+        <div onClick={handleClick}>
+          <VideoBlockComponent
+            block={block}
+            isSelected={isSelected}
+            onSrcChange={(src) => onBlockUpdate({ ...block, src })}
+          />
+        </div>
+      );
     case "button":
       return (
         <div onClick={handleClick}>
           <ButtonBlockComponent block={block} isSelected={isSelected} />
         </div>
       );
+    case "dynamicContent":
+      return (
+        <div onClick={handleClick}>
+          <DynamicContentBlockComponent
+            block={block}
+            isSelected={isSelected}
+            onFieldNameChange={(fieldName) =>
+              onBlockUpdate({ ...block, fieldName })
+            }
+          />
+        </div>
+      );
+    case "logo":
+      return (
+        <div onClick={handleClick}>
+          <LogoBlockComponent
+            block={block}
+            isSelected={isSelected}
+            onSrcChange={(src) => onBlockUpdate({ ...block, src })}
+          />
+        </div>
+      );
+    case "social":
+      return (
+        <div onClick={handleClick}>
+          <SocialBlockComponent block={block} isSelected={isSelected} />
+        </div>
+      );
+    case "html":
+      return (
+        <div onClick={handleClick}>
+          <HtmlBlockComponent
+            block={block}
+            isSelected={isSelected}
+            onContentChange={(content) => onBlockUpdate({ ...block, content })}
+          />
+        </div>
+      );
     case "divider":
       return (
         <div onClick={handleClick}>
           <DividerBlockComponent block={block} isSelected={isSelected} />
+        </div>
+      );
+    case "product":
+      return (
+        <div onClick={handleClick}>
+          <ProductBlockComponent block={block} isSelected={isSelected} />
+        </div>
+      );
+    case "navigation":
+      return (
+        <div onClick={handleClick}>
+          <NavigationBlockComponent block={block} isSelected={isSelected} />
         </div>
       );
     case "header":
