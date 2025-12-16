@@ -46,6 +46,77 @@ export interface ImageBlock {
   alignment: "left" | "center" | "right";
 }
 
+export interface VideoBlock {
+  type: "video";
+  id: string;
+  src: string;
+  thumbnail: string;
+  width: number;
+  height: number;
+  alignment: "left" | "center" | "right";
+}
+
+export interface DynamicContentBlock {
+  type: "dynamicContent";
+  id: string;
+  fieldName: string;
+  placeholder: string;
+  backgroundColor: string;
+  padding: number;
+}
+
+export interface LogoBlock {
+  type: "logo";
+  id: string;
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  alignment: "left" | "center" | "right";
+}
+
+export interface SocialBlock {
+  type: "social";
+  id: string;
+  platforms: {
+    name: string;
+    url: string;
+    icon: string;
+  }[];
+  alignment: "left" | "center" | "right";
+  size: "small" | "medium" | "large";
+}
+
+export interface HtmlBlock {
+  type: "html";
+  id: string;
+  content: string;
+}
+
+export interface ProductBlock {
+  type: "product";
+  id: string;
+  image: string;
+  title: string;
+  description: string;
+  price: string;
+  buttonText: string;
+  buttonLink: string;
+  alignment: "left" | "center" | "right";
+}
+
+export interface NavigationBlock {
+  type: "navigation";
+  id: string;
+  items: {
+    label: string;
+    link: string;
+  }[];
+  backgroundColor: string;
+  textColor: string;
+  alignment: "left" | "center" | "right";
+}
+
 export interface ButtonBlock {
   type: "button";
   id: string;
