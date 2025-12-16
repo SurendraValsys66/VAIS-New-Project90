@@ -143,6 +143,12 @@ export interface HtmlBlock {
   type: "html";
   id: string;
   content: string;
+  padding: number;
+  margin: number;
+  borderWidth: number;
+  borderColor: string;
+  borderRadius: number;
+  visibility: "all" | "desktop" | "mobile";
 }
 
 export interface ProductBlock {
