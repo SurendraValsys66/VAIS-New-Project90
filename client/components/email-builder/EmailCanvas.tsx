@@ -7,10 +7,13 @@ import { BlockRenderer } from "./BlockRenderer";
 
 interface EmailCanvasProps {
   template: EmailTemplate;
+  templateSubject: string;
   selectedBlockId: string | null;
   onAddBlock: (block: ContentBlock) => void;
   onBlockUpdate: (block: ContentBlock) => void;
   onBlockSelect: (id: string) => void;
+  onTemplateSubjectChange: (subject: string) => void;
+  onBackgroundColorChange: (color: string) => void;
 }
 
 export const EmailCanvas: React.FC<EmailCanvasProps> = ({
