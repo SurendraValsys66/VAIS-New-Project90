@@ -43,6 +43,8 @@ import {
   createHeaderLogoAndDividerTemplate,
   createHeaderLogoAndSocialTemplate,
   createHeaderLogoAndNavigationTemplate,
+  createFooterWithSocialTemplate,
+  createFooterWithContactTemplate,
 } from "./utils";
 import { ContentBlock } from "./types";
 
