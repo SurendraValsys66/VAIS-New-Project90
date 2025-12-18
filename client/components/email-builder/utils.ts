@@ -572,8 +572,12 @@ export function renderBlockToHTML(block: ContentBlock): string {
     }
     case "dynamicContent":
       return `<div style="background-color: ${block.backgroundColor}; padding: ${block.padding}px; border: 1px dashed #ccc;">${block.placeholder}</div>`;
-    case "logo":
-      return `<div style="text-align: ${block.alignment};"><img src="${block.src}" alt="${block.alt}" style="width: ${block.width}px; height: ${block.height}px;" /></div>`;
+    case "logo": {
+      const logoBlock = block as LogoBlock;
+      const logoDisplay = logoBlock.alignment === "center" ? "block" : "inline";
+      const logoMargin = logoBlock.alignment === "center" ? "0 auto" : "0";
+      return `<div style="text-align: ${logoBlock.alignment};"><img src="${logoBlock.src}" alt="${logoBlock.alt}" style="width: ${logoBlock.width}px; height: ${logoBlock.height}px; display: ${logoDisplay}; margin: ${logoMargin};" /></div>`;
+    }
     case "social":
       return `<div style="text-align: ${block.alignment}; padding: 20px 0;"><p>Follow us on social media</p></div>`;
     case "html":
